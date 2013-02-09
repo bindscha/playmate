@@ -1,0 +1,38 @@
+@**
+ * HTML helper to include a script
+ * 
+ * @param localPath local path to script
+ * @param localMinifiedPath optional local path to minified script
+ * @param cdnPath optional CDN path to script
+ * @param fallbackCondition optional condition to check whether the script was 
+ * loaded from CDN or not and, if not, fall back to local
+ * 
+ * Example usage (to include jQuery):
+ * {{{
+ * @script("public/js/jquery.js", Some("public/js/jquery.min.js"), Some("//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"), Some("window.jQuery"))
+ * }}}
+ * 
+ * @version 1.0
+ * @author [[mailto:laurent@bindschaedler.com Laurent Bindschaedler]]
+ *@
+ @(localPath: String, localMinifiedPath: Option[String] = None, cdnPath: Option[String] = None, fallbackCondition: Option[String] = None)
+
+@defining(
+  /* In production mode, include script on CDN (if available) */
+  if(play.api.Play.isProd(play.api.Play.current) && cdnPath.isDefined) 
+    cdnPath.get 
+  /* If script not on CDN, include local minified script */
+  else if(play.api.Play.isProd(play.api.Play.current) && localMinifiedPath.isDefined) 
+    localMinifiedPath.get
+  /* In debug mode, include local non-minified script */
+  else 
+    localPath
+) { path => 
+<script src="@path"></script>
+  @((localMinifiedPath, fallbackCondition)) match {
+    case (Some(minPath), Some(condition)) if play.api.Play.isProd(play.api.Play.current) => {
+<script>@condition || document.write('<script src="@minPath"><\/script>')</script>
+    }
+    case _ => { }
+  }
+}

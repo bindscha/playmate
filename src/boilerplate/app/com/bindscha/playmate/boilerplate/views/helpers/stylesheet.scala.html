@@ -1,0 +1,30 @@
+@**
+ * HTML helper to include a stylesheet
+ * 
+ * @param localPath local path to stylesheet
+ * @param localMinifiedPath optional local path to minified stylesheet
+ * @param cdnPath optional CDN path to stylesheet
+ * 
+ * Example usage (to include bootstrap.css):
+ * {{{
+ * @stylesheet("public/css/bootstrap.css", Some("public/css/bootstrap.min.css"), Some("//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css"))
+ * }}}
+ * 
+ * @version 1.0
+ * @author [[mailto:laurent@bindschaedler.com Laurent Bindschaedler]]
+ *@
+ @(localPath: String, localMinifiedPath: Option[String] = None, cdnPath: Option[String] = None)
+
+@defining(
+  /* In production mode, include stylesheet on CDN (if available) */
+  if(play.api.Play.isProd(play.api.Play.current) && cdnPath.isDefined) 
+    cdnPath.get 
+  /* If stylesheet not on CDN, include local minified stylesheet */
+  else if(play.api.Play.isProd(play.api.Play.current) && localMinifiedPath.isDefined) 
+    localMinifiedPath.get
+  /* In debug mode, include local non-minified stylesheet */
+  else 
+    localPath
+) { path => 
+<link rel="stylesheet" href="@path">
+}

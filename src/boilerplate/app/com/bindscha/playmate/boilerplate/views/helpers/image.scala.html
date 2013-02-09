@@ -1,0 +1,27 @@
+@**
+ * HTML helper to include an image
+ * 
+ * @param id image identifier (assumed to be unique)
+ * @param localPath local path to image
+ * @param cdnPath optional CDN path to image
+ * 
+ * Example usage (to include logo.png):
+ * {{{
+ * @image("logo", "public/img/logo.png", Some("abcdefghijkl.cloudfront.net/logo.png"))
+ * }}}
+ * 
+ * @version 1.0
+ * @author [[mailto:laurent@bindschaedler.com Laurent Bindschaedler]]
+ *@
+ @(id: String, localPath: String, cdnPath: Option[String] = None)
+
+@defining(
+  /* In production mode, include image on CDN (if available) */
+  if(play.api.Play.isProd(play.api.Play.current) && cdnPath.isDefined) 
+    cdnPath.get 
+  /* In debug mode, include local image */
+  else 
+    localPath
+) { path => 
+<img id="@id" src="@path">
+}

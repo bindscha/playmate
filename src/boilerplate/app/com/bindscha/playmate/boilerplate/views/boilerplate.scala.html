@@ -1,0 +1,60 @@
+@**
+ * HTML5 boilerplate
+ * 
+ * @param title HTML page title
+ * @param head HTML head tags (stylesheets, scripts, etc.)
+ * @param tail HTML body tags (scripts, etc.)
+ * @param body HTML page body
+ * 
+ * @version 1.0
+ * @author [[mailto:laurent@bindschaedler.com Laurent Bindschaedler]]
+ *@
+@(title: Html = Html(""))(head: Html = Html(""))(tail: Html = Html(""))(body: Html = Html(""))(implicit assetsController: com.bindscha.playmate.boilerplate.controllers.AssetsController = com.bindscha.playmate.boilerplate.controllers.BoilerplateAssetsController)
+
+@import com.bindscha.playmate.boilerplate.controllers._
+
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>
+      @title
+    </title>
+
+    <!-- Mobile viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <!-- Fav and touch icons -->
+    @assetsController.icon(Favicon)
+    @assetsController.icon(AppleIcon144)
+    @assetsController.icon(AppleIcon114)
+    @assetsController.icon(AppleIcon72)
+    @assetsController.icon(AppleIcon57)
+    
+    @head
+
+    <!-- Modernizr -->
+    @assetsController.script(BoilerplateAssets.MODERNIZR)
+    
+  </head>
+  <body>
+
+    @body
+    
+    <!-- jQuery -->
+    @assetsController.script(BoilerplateAssets.JQUERY)
+    
+    @tail
+
+  </body>
+</html>

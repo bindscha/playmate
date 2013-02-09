@@ -1,0 +1,29 @@
+@**
+ * HTML5 boilerplate with header and footer
+ * 
+ * @param title HTML page title
+ * @param head HTML head tags (stylesheets, scripts, etc.)
+ * @param tail HTML body tags (scripts, etc.)
+ * @param header HTML body header (navbar or other)
+ * @param footer HTML body footer (footer, copyright, etc.)
+ * @param body HTML page body
+ * 
+ * @version 1.0
+ * @author [[mailto:laurent@bindschaedler.com Laurent Bindschaedler]]
+ *@
+@(title: Html = Html(""))(head: Html = Html(""))(tail: Html = Html(""))(header: Html = Html(""))(footer: Html = Html(""))(content: Html = Html(""))(implicit assetsController: com.bindscha.playmate.boilerplate.controllers.AssetsController = com.bindscha.playmate.boilerplate.controllers.BoilerplateAssetsController)
+
+@import com.bindscha.playmate.boilerplate.controllers._
+
+@boilerplate(title)(head)(tail) {
+
+  <!-- Header -->
+  @header
+
+  <!-- Content -->
+  @content
+
+  <!-- Footer -->
+  @footer
+
+}

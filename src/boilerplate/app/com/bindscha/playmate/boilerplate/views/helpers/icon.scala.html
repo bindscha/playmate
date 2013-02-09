@@ -1,0 +1,19 @@
+@**
+ * HTML helper to include an icon
+ * 
+ * @param id image identifier (assumed to be unique)
+ * @param localPath local path to icon
+ * @param sizes optional icon dimensions (formatted as "<width>x<height>")
+ * 
+ * Example usage (to include favicon.ico):
+ * {{{
+ * @icon("shortcut icon", "public/icn/favicon.ico")
+ * }}}
+ * 
+ * @version 1.0
+ * @author [[mailto:laurent@bindschaedler.com Laurent Bindschaedler]]
+ *@
+ 
+ @(rel: String, localPath: String, sizes: Option[String] = None)
+
+<link rel="@rel" @sizes.map(s => Html("sizes=\"" + s + "\"")) href="@localPath">
